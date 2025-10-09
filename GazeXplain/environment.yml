@@ -89,6 +89,7 @@ dependencies:
   - xz=5.4.5=h5eee18b_0
   - zlib=1.2.13=h5eee18b_0
   - pip:
+    - clearml
     - absl-py==2.1.0
     - accelerate==0.27.0
     - aiohttp==3.9.3
