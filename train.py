@@ -4,6 +4,8 @@ import os
 
 task = Task.init()
 
+print('Test task')
+
 dataset = Dataset.get(dataset_name='GazeXplain_dataset', dataset_project='GazeXplain')
 dataset_path = dataset.get_local_copy()
 print(f'Dataset downloaded to: {dataset_path}')
