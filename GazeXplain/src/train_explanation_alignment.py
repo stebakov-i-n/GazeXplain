@@ -665,7 +665,6 @@ def main():
                         "metrics/CIDEr-R": gather_score["CIDEr-R"].mean(),
                     }
                 else:
-                    print(gather_score["SSS_score"].shape)
                     cur_metric = {
                         "metrics/SM without Dur": gather_score["scanmatch_score"][:, 0].mean(),
                         "metrics/SM with Dur": gather_score["scanmatch_score"][:, 1].mean(),

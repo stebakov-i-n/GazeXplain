@@ -1,4 +1,7 @@
 # The name of this experiment.
+conda env create -f GazeXplain/environment.yml
+conda activate object_scanpath
+
 DATASET_NAME='COCO_TP'
 MODEL_NAME='runX_baseline'
 
@@ -11,4 +14,4 @@ cp $0 $output/bash/run.bash
 
 # TORCH_DISTRIBUTED_DEBUG=DETAIL
 TORCH_DISTRIBUTED_DEBUG=DETAIL accelerate launch --config_file GazeXplain/src/config.yaml --main_process_port 29600 GazeXplain/src/train_explanation_alignment.py --project_dir runs/${DATASET_NAME}_${MODEL_NAME} \
-  --project_name ExplanationScanpath --checkpoint_every 1 --checkpoint_every_rl 1 --epochs 2 --start_rl_epoch 1  --batch 16 --test_batch 32
+  --project_name ExplanationScanpath --checkpoint_every 2 --checkpoint_every_rl 1 --epochs 10 --start_rl_epoch 8  --batch 16 --test_batch 32
