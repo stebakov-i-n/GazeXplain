@@ -10,12 +10,12 @@ dataset = Dataset.get(dataset_name='GazeXplain_dataset', dataset_project='GazeXp
 dataset_path = dataset.get_local_copy()
 print(f'Dataset downloaded to: {dataset_path}')
 
-subprocess.run(
-    ['bash', 'GazeXplain/bash/train.sh'],
-    capture_output=True,
-    text=True,
-    check=True
-)
+# subprocess.run(
+#     ['bash', 'GazeXplain/bash/train.sh'],
+#     capture_output=True,
+#     text=True,
+#     check=True
+# )
 
 # # # Инициализация задачи ClearML
 # # task = Task.init(
