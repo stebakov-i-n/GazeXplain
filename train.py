@@ -10,6 +10,7 @@ dataset = Dataset.get(dataset_name='GazeXplain_dataset', dataset_project='GazeXp
 dataset_path = dataset.get_local_copy()
 print(f'Dataset downloaded to: {dataset_path}')
 print(os.listdir('.'))
+print(os.listdir(dataset_path))
 
 # subprocess.run(
 #     ['bash', 'GazeXplain/bash/train.sh'],
