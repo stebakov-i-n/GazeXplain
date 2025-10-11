@@ -1,6 +1,9 @@
 # The name of this experiment.
-# conda env create -f GazeXplain/environment.yml
-# conda activate object_scanpath
+apt-get install -y libgl1
+apt-get install default-jre
+pip install accelerate[cli]==0.27.0
+pip show accelerate | grep Location
+export PATH="$PATH:/root/.clearml/venvs-builds/3.10/bin"
 
 DATASET_NAME='COCO_TP'
 MODEL_NAME='runX_baseline'
@@ -13,17 +16,7 @@ apt install -y rsync
 rsync -av  GazeXplain/src/* $output/src/
 cp $0 $output/bash/run.bash
 
-apt-get install -y libgl1
-
-pip show accelerate | grep Location
-
-export PATH="/root/.clearml/venvs-builds/3.10/lib/python3.10/site-packages:$PATH"
-
 python3 GazeXplain/src/preprocess/COCOSearch18/feature_extractor.py --dataset_path "$1/COCO/TP"
-
-python3 GazeXplain/src/test.py
-
-pip install accelerate==0.27.0
 
 # TORCH_DISTRIBUTED_DEBUG=DETAIL
 TORCH_DISTRIBUTED_DEBUG=DETAIL accelerate launch --config_file GazeXplain/src/config.yaml --main_process_port 29600 GazeXplain/src/train_explanation_alignment.py --project_dir runs/${DATASET_NAME}_${MODEL_NAME} \
