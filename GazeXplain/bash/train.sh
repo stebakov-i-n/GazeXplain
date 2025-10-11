@@ -12,6 +12,8 @@ mkdir -p $output/bash
 rsync -av  GazeXplain/src/* $output/src/
 cp $0 $output/bash/run.bash
 
+apt-get update && apt-get install libgl1
+
 pip show accelerate | grep Location
 
 python3 GazeXplain/src/preprocess/COCOSearch18/feature_extractor.py --dataset_path "$1/COCO/TP"
