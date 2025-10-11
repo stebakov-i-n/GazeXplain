@@ -12,6 +12,8 @@ mkdir -p $output/bash
 rsync -av  GazeXplain/src/* $output/src/
 cp $0 $output/bash/run.bash
 
+pip show accelerate | grep Location
+
 python3 GazeXplain/src/preprocess/COCOSearch18/feature_extractor.py --dataset_path "$1/COCO/TP"
 
 
