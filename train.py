@@ -13,10 +13,7 @@ print(os.listdir('.'))
 print(os.listdir(dataset_path))
 
 subprocess.run(
-    ['bash', 'GazeXplain/bash/train.sh', dataset_path],
-    capture_output=True,
-    text=True,
-    check=True
+    ['bash', 'GazeXplain/bash/train.sh', dataset_path]
 )
 
 # # # Инициализация задачи ClearML
