@@ -1,6 +1,6 @@
 # The name of this experiment.
 apt-get install -y libgl1
-apt-get install default-jre
+apt-get install -y default-jre
 pip install accelerate[cli]==0.27.0
 pip show accelerate | grep Location
 export PATH="$PATH:/root/.clearml/venvs-builds/3.10/bin"
