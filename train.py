@@ -12,12 +12,12 @@ print(f'Dataset downloaded to: {dataset_path}')
 print(os.listdir('.'))
 print(os.listdir(dataset_path))
 
-# subprocess.run(
-#     ['bash', 'GazeXplain/bash/train.sh'],
-#     capture_output=True,
-#     text=True,
-#     check=True
-# )
+subprocess.run(
+    ['bash', 'GazeXplain/bash/train.sh', dataset_path],
+    capture_output=True,
+    text=True,
+    check=True
+)
 
 # # # Инициализация задачи ClearML
 # # task = Task.init(
