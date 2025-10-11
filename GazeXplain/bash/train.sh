@@ -12,7 +12,7 @@ mkdir -p $output/bash
 rsync -av  GazeXplain/src/* $output/src/
 cp $0 $output/bash/run.bash
 
-apt-get update && apt-get install libgl1
+apt-get install libgl1 -y whatever
 
 pip show accelerate | grep Location
 
