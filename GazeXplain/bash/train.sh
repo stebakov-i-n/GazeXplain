@@ -15,11 +15,11 @@ cp $0 $output/bash/run.bash
 
 apt-get install -y libgl1
 
-
 pip show accelerate | grep Location
 
-python3 GazeXplain/src/preprocess/COCOSearch18/feature_extractor.py --dataset_path "$1/COCO/TP"
+export PATH="/root/.clearml/venvs-builds/3.10/lib/python3.10/site-packages:$PATH"
 
+python3 GazeXplain/src/preprocess/COCOSearch18/feature_extractor.py --dataset_path "$1/COCO/TP"
 
 python3 GazeXplain/src/test.py
 
