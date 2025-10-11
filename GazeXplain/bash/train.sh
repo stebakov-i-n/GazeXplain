@@ -9,10 +9,12 @@ MODEL_NAME='runX_baseline'
 output=runs/${DATASET_NAME}_${MODEL_NAME}
 mkdir -p $output/src
 mkdir -p $output/bash
+apt install -y rsync
 rsync -av  GazeXplain/src/* $output/src/
 cp $0 $output/bash/run.bash
 
-apt-get install libgl1 -y whatever
+apt-get install -y libgl1
+
 
 pip show accelerate | grep Location
 
