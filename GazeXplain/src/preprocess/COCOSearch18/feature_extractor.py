@@ -8,6 +8,7 @@ import os
 from os.path import join, isdir, isfile
 import numpy as np
 import argparse
+import json
 
 class ResNetCOCO(nn.Module):
     def __init__(self, device="cuda:0"):
@@ -35,6 +36,22 @@ def image_data(dataset_path, device='cuda:0', overwrite=False):
     resize_dim = (384 * 2, 512 * 2)
     src_path = join(dataset_path, 'images/')
     target_path = join(dataset_path, '../image_features/')
+
+    images_all = []
+
+    with open(join(join(dataset_path, 'fixations/', 'coco_search18_fixations_TP_validation.json')), "r") as f:
+        validation_fix = json.load(f)[:100]
+
+    with open(join(join(dataset_path, 'fixations/', 'coco_search18_fixations_TP_test.json')), "r") as f:
+        test_fix = json.load(f)[:100]
+
+    with open(join(join(dataset_path, 'fixations/', 'coco_search18_fixations_TP_train.json')), "r") as f:
+        train_fix = json.load(f)[:100]
+
+    images_all += [i["name"] for i in test_fix]
+    images_all += [i["name"] for i in validation_fix]
+    images_all += [i["name"] for i in train_fix]
+
     resize = T.Resize(resize_dim)
     normalize = T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     folders = [i for i in os.listdir(src_path) if isdir(join(src_path, i))]
@@ -46,13 +63,14 @@ def image_data(dataset_path, device='cuda:0', overwrite=False):
         files = [i for i in os.listdir(join(src_path, folder)) if
                  isfile(join(src_path, folder, i)) and i.endswith('.jpg')]
         for f in files:
-            if overwrite == False and os.path.exists(join(target_path, f.replace('jpg', 'pth'))):
-                continue
-            PIL_image = PIL.Image.open(join(src_path, folder, f))
-            tensor_image = normalize(resize(T.functional.to_tensor(PIL_image))).unsqueeze(0)
+            if f in images_all:
+                if overwrite == False and os.path.exists(join(target_path, f.replace('jpg', 'pth'))):
+                    continue
+                PIL_image = PIL.Image.open(join(src_path, folder, f))
+                tensor_image = normalize(resize(T.functional.to_tensor(PIL_image))).unsqueeze(0)
 
-            features = bbone(tensor_image).squeeze().detach().cpu()
-            torch.save(features, join(target_path, f.replace('jpg', 'pth')))
+                features = bbone(tensor_image).squeeze().detach().cpu()
+                torch.save(features, join(target_path, f.replace('jpg', 'pth')))
 
 
 
