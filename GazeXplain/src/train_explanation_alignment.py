@@ -812,7 +812,7 @@ def main():
         accelerator.end_training()
 
     with open(os.path.join(args.project_dir, "history.json"), "w") as f:
-        json.dump(history, f, indent=2)
+        json.dump(history, f)
 
 if __name__ == "__main__":
     main()
