@@ -399,7 +399,7 @@ def main():
                     pbar.update()
 
 
-        return iteration, loss.detach().float()
+        return iteration, loss.detach().item()
 
     def validation(iteration):
         model.eval()
