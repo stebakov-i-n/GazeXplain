@@ -20,4 +20,4 @@ python3 GazeXplain/src/preprocess/COCOSearch18/feature_extractor.py --dataset_pa
 
 # TORCH_DISTRIBUTED_DEBUG=DETAIL
 TORCH_DISTRIBUTED_DEBUG=DETAIL accelerate launch --config_file GazeXplain/src/config.yaml --main_process_port 29600 GazeXplain/src/train_explanation_alignment.py --project_dir runs/${DATASET_NAME}_${MODEL_NAME} \
-  --project_name ExplanationScanpath --checkpoint_every 2 --checkpoint_every_rl 1 --epochs 1 --start_rl_epoch 8  --batch 16 --test_batch 32 --dataset_dir "$1/"
+  --project_name ExplanationScanpath --checkpoint_every 2 --checkpoint_every_rl 1 --epochs 10 --start_rl_epoch 8  --batch 16 --test_batch 32 --dataset_dir "$1/"

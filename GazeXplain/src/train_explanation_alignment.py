@@ -399,7 +399,7 @@ def main():
                     pbar.update()
 
 
-        return iteration
+        return iteration, loss.detach().float()
 
     def validation(iteration):
         model.eval()
@@ -762,21 +762,22 @@ def main():
             with open(os.path.join(save_path, "predictions.json"), "w") as f:
                 json.dump(predict_results, f, indent=2)
 
-            return cur_metrics
+            return cur_metrics, cur_metrics["metrics/AUC"]
         else:
             return None
-
+    history = {'Train': [], 'Val': []}
     for epoch in range(start_epoch + 1, args.epochs):
         accelerator.print("-" * 50)
         accelerator.print("Running the {epoch:2d}-th epoch...".format(epoch=epoch))
 
-        iteration = train(iteration, epoch)
+        iteration, loss = train(iteration, epoch)
+        history['Train'].append(loss)
         if (epoch < args.start_rl_epoch and (epoch + 1) % args.checkpoint_every == 0) or \
                 (epoch >= args.start_rl_epoch and (epoch + 1) % args.checkpoint_every_rl == 0):
             accelerator.print("Evaluating the {epoch:2d}-th epoch...".format(epoch=epoch))
 
-            cur_metrics = validation(iteration)
-
+            cur_metrics, loss_val = validation(iteration)
+            history['Val'].append(loss_val)
             # save
             if accelerator.is_main_process:
                 cur_metric = scipy.stats.hmean([cur_metrics["metrics/SM without Dur"], cur_metrics["metrics/SM with Dur"]])
@@ -809,6 +810,9 @@ def main():
 
     if args.with_tracking:
         accelerator.end_training()
+
+    with open(os.path.join(args.project_dir, "history.json"), "w") as f:
+        json.dump(history, f, indent=2)
 
 if __name__ == "__main__":
     main()
