@@ -40,13 +40,13 @@ def image_data(dataset_path, device='cuda:0', overwrite=False):
     images_all = []
 
     with open(join(join(dataset_path, 'fixations/', 'coco_search18_fixations_TP_validation.json')), "r") as f:
-        validation_fix = json.load(f)[:100]
+        validation_fix = json.load(f)
 
     with open(join(join(dataset_path, 'fixations/', 'coco_search18_fixations_TP_test.json')), "r") as f:
-        test_fix = json.load(f)[:100]
+        test_fix = json.load(f)
 
     with open(join(join(dataset_path, 'fixations/', 'coco_search18_fixations_TP_train.json')), "r") as f:
-        train_fix = json.load(f)[:100]
+        train_fix = json.load(f)
 
     images_all += [i["name"] for i in test_fix]
     images_all += [i["name"] for i in validation_fix]

@@ -6,7 +6,7 @@ def parse_opt():
     parser.add_argument("--mode", type=str, default="train", help="Selecting running mode (default: train)")
     parser.add_argument('--dataset_dir', default="dataset/", help='feature folder')
     parser.add_argument('--datasets', default=["COCO-TP"], nargs='+', help='used dataset')
-    parser.add_argument('--tiny', default=True, action="store_true", help='use the tiny dataset in debug')
+    parser.add_argument('--tiny', default=False, action="store_true", help='use the tiny dataset in debug')
 
     parser.add_argument("--batch", type=int, default=8, help="Batch size")
     parser.add_argument("--test_batch", type=int, default=16, help="Batch size")

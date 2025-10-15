@@ -1,25 +1,25 @@
 # The name of this experiment.
-df -h
-# apt-get install -y libgl1
-# apt-get install -y default-jre
-# pip install accelerate[cli]==0.27.0
-# pip show accelerate | grep Location
 
-# export PATH="$PATH:/root/.clearml/venvs-builds/3.10/bin"
+apt-get install -y libgl1
+apt-get install -y default-jre
+pip install accelerate[cli]==0.27.0
+pip show accelerate | grep Location
 
-# DATASET_NAME='COCO_TP'
-# MODEL_NAME='runX_baseline'
+export PATH="$PATH:/root/.clearml/venvs-builds/3.10/bin"
 
-# # Save logs and models under snap/; make backup.
-# output=runs/${DATASET_NAME}_${MODEL_NAME}
-# mkdir -p $output/src
-# mkdir -p $output/bash
-# apt install -y rsync
-# rsync -av  GazeXplain/src/* $output/src/
-# cp $0 $output/bash/run.bash
+DATASET_NAME='COCO_TP'
+MODEL_NAME='runX_baseline'
 
-# python3 GazeXplain/src/preprocess/COCOSearch18/feature_extractor.py --dataset_path "$1/COCO/TP"
+# Save logs and models under snap/; make backup.
+output=runs/${DATASET_NAME}_${MODEL_NAME}
+mkdir -p $output/src
+mkdir -p $output/bash
+apt install -y rsync
+rsync -av  GazeXplain/src/* $output/src/
+cp $0 $output/bash/run.bash
 
-# # TORCH_DISTRIBUTED_DEBUG=DETAIL
-# TORCH_DISTRIBUTED_DEBUG=DETAIL accelerate launch --config_file GazeXplain/src/config.yaml --main_process_port 29600 GazeXplain/src/train_explanation_alignment.py --project_dir runs/${DATASET_NAME}_${MODEL_NAME} \
-#   --project_name ExplanationScanpath --checkpoint_every 1 --checkpoint_every_rl 1 --epochs 10 --start_rl_epoch 8  --batch 16 --test_batch 32 --dataset_dir "$1/"
+python3 GazeXplain/src/preprocess/COCOSearch18/feature_extractor.py --dataset_path "$1/COCO/TP"
+
+# TORCH_DISTRIBUTED_DEBUG=DETAIL
+TORCH_DISTRIBUTED_DEBUG=DETAIL accelerate launch --config_file GazeXplain/src/config.yaml --main_process_port 29600 GazeXplain/src/train_explanation_alignment.py --project_dir runs/${DATASET_NAME}_${MODEL_NAME} \
+  --project_name ExplanationScanpath --checkpoint_every 1 --checkpoint_every_rl 1 --epochs 10 --start_rl_epoch 8  --batch 16 --test_batch 32 --dataset_dir "$1/"
