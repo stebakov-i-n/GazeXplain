@@ -17,59 +17,30 @@ subprocess.run(
     ['bash', 'GazeXplain/bash/train.sh', dataset_path]
 )
 
-with open('runs/COCO_TP_runX_baseline/history.json', 'r') as fp:
-    history = json.load(fp)
+# with open('runs/COCO_TP_runX_baseline/history.json', 'r') as fp:
+#     history = json.load(fp)
 
-with open('runs/COCO_TP_runX_baseline/hparams.json', 'r') as fp:
-    hparams = json.load(fp)
+# with open('runs/COCO_TP_runX_baseline/hparams.json', 'r') as fp:
+#     hparams = json.load(fp)
 
-for i in range(len(history['Train'])):
-    # Log a simple metric
-    task.logger.report_scalar(
-        title="loss",
-        series="Training",
-        value=history['Train'][i],
-        iteration=i
-    )
-
-    task.logger.report_scalar(
-        title="AUC",
-        series="Validation",
-        value=history['Val'][i],
-        iteration=i
-    )
-
-# Log a hyperparameter
-task.connect(hparams)
-
-task.upload_artifact('trained_model', artifact_object='runs/COCO_TP_runX_baseline/checkpoints/ckpt_best/model.safetensors')
-task.upload_artifact('evaluation', artifact_object='runs/COCO_TP_runX_baseline/validation/metric.json')
-
-
-# # # Инициализация задачи ClearML
-# # task = Task.init(
-# #     project_name='GazeXplain',
-# #     task_name='GazeXplain_Training',
-# #     auto_connect_frameworks=True
-# # )
-
-# # Логируем сам sh-скрипт
-# task.upload_artifact(name='training_script', artifact_object='GazeXplain/bash/train.sh')
-
-# # Запускаем shell-скрипт
-# try:
-#     result = subprocess.run(
-#         ['bash', 'GazeXplain/bash/train.sh'],
-#         capture_output=True,
-#         text=True,
-#         check=True
+# for i in range(len(history['Train'])):
+#     # Log a simple metric
+#     task.logger.report_scalar(
+#         title="loss",
+#         series="Training",
+#         value=history['Train'][i],
+#         iteration=i
 #     )
 
-#     task.upload_artifact('trained_model', artifact_object='runs/COCO_TP_runX_baseline/checkpoints/ckpt_best/model.safetensors')
-#     task.upload_artifact('evaluation', artifact_object='runs/COCO_TP_runX_baseline/validation/metric.json')
+#     task.logger.report_scalar(
+#         title="AUC",
+#         series="Validation",
+#         value=history['Val'][i],
+#         iteration=i
+#     )
 
+# # Log a hyperparameter
+# task.connect(hparams)
 
-        
-# except subprocess.CalledProcessError as e:
-#     task.get_logger().report_text(f"Script failed: {e}")
-#     raise
+# task.upload_artifact('trained_model', artifact_object='runs/COCO_TP_runX_baseline/checkpoints/ckpt_best/model.safetensors')
+# task.upload_artifact('evaluation', artifact_object='runs/COCO_TP_runX_baseline/validation/metric.json')
