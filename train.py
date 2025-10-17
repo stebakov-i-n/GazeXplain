@@ -42,4 +42,7 @@ for i in range(len(history['Train'])):
 # Log a hyperparameter
 task.connect(hparams)
 
-task.upload_artifact('run', artifact_object='runs/COCO_TP_runX_baseline')
+task.upload_artifact('checkpoint_best', artifact_object='runs/COCO_TP_runX_baseline/checkpoints/ckpt_best')
+task.upload_artifact('checkpoint_spv', artifact_object='runs/COCO_TP_runX_baseline/checkpoints/ckpt_supervised_end')
+task.upload_artifact('history_record', artifact_object='runs/COCO_TP_runX_baseline/history_record.json')
+task.upload_artifact('validation', artifact_object='runs/COCO_TP_runX_baseline/validation')
