@@ -184,6 +184,9 @@ class UnifiedScanpath(Dataset):
             fixation["height"] = 320
             fixation["width"] = 512
 
+        print('!!!', len(cocosearch18_TP_fixations))
+        cocosearch18_TP_fixations = list(filter(lambda x: x['task'] != 'stop sign', cocosearch18_TP_fixations))
+        print('!!!', len(cocosearch18_TP_fixations))
         # explanation
         cocotp_explanation_dir = os.path.join(self.opt.dataset_dir, "COCO/TP", "processed")
         
