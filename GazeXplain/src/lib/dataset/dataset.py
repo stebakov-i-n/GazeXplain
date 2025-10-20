@@ -174,6 +174,10 @@ class UnifiedScanpath(Dataset):
         with open(join(cocosearch18_TP_fixation_dir, "coco_search18_fixations_TP_{}.json".format(self.split)), "r") as f:
             cocosearch18_TP_fixations = json.load(f)
 
+        cocosearch18_TP_fixation_desc_dir = os.path.join(self.opt.dataset_dir, "COCO", "TP", "fixations")
+        with open('Qwen3_30B_PROMPT_L.json', "r") as f:
+            cocosearch18_TP_fixations_desc = json.load(f)
+
         if self.opt.tiny:
             cocosearch18_TP_fixations = cocosearch18_TP_fixations[:100]
 
@@ -224,14 +228,18 @@ class UnifiedScanpath(Dataset):
             fixation["explanation"] = cocotp_explanation_dict["{}-{}".format(fixation["task"], fixation["name"])][fixation["subject"]]
 
         # task description
+        # text_template = "Question: Is there a {} in the image? Answer: {}."
+        # for fixation in cocosearch18_TP_fixations:
+        #     if fixation["fixOnTarget"]:
+        #         subject_answer = "yes"
+        #     else:
+        #         subject_answer = "no"
+        #     task_description = text_template.format(fixation["task"], subject_answer)
+        #     fixation["task_description"] = task_description
+
         text_template = "Question: Is there a {} in the image? Answer: {}."
         for fixation in cocosearch18_TP_fixations:
-            if fixation["fixOnTarget"]:
-                subject_answer = "yes"
-            else:
-                subject_answer = "no"
-            task_description = text_template.format(fixation["task"], subject_answer)
-            fixation["task_description"] = task_description
+            fixation["task_description"] = cocosearch18_TP_fixations_desc[fixation["name"] + fixation["task"]]
 
 
         # ########## for COCO-Search18 TA ##########
