@@ -175,7 +175,7 @@ class UnifiedScanpath(Dataset):
             cocosearch18_TP_fixations = json.load(f)
 
         cocosearch18_TP_fixation_desc_dir = os.path.join(self.opt.dataset_dir, "COCO", "TP", "fixations")
-        with open('Qwen3_30B_PROMPT_L.json', "r") as f:
+        with open('GazeXplain/Qwen3_30B_PROMPT_L.json', "r") as f:
             cocosearch18_TP_fixations_desc = json.load(f)
 
         if self.opt.tiny:
