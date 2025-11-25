@@ -3,7 +3,7 @@ import subprocess
 import os
 import json
 
-LOCAL = True
+LOCAL = False
 DATASET = 'CocoSearch'
 UNSEEN_SET = 'set_1'
 EXP_NAME = 'VLM_experiments_unseen_set_1'
