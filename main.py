@@ -3,9 +3,10 @@ import subprocess
 import os
 import json
 
-LOCAL = False
-DATASET = 'GazeSearch'
-EXP_NAME = 'VLM_experiments_test'
+LOCAL = True
+DATASET = 'CocoSearch'
+UNSEEN_SET = 'set_1'
+EXP_NAME = 'VLM_experiments_unseen_set_1'
 
 def main():
     if not LOCAL:
@@ -16,7 +17,7 @@ def main():
         dataset_path = '/repo'
 
     subprocess.run(
-        ['bash', 'repo/bash/train.sh', dataset_path, DATASET, EXP_NAME]
+        ['bash', 'repo/bash/train.sh', dataset_path, DATASET, UNSEEN_SET, EXP_NAME]
     )
 
     subprocess.run(

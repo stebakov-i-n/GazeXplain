@@ -1,6 +1,5 @@
 import argparse
 import os.path
-
 import h5py
 import torch
 import numpy as np
@@ -197,11 +196,13 @@ class UnifiedScanpath(Dataset):
                 fixation["width"] = 512
         
         if self.opt.unseen:
-            obj = "support devices" if self.opt.search_dataset == 'cxr' else "stop sign"
+            set_1 = ['chair','fork','stop sign','oven','bottle','toilet','laptop','bowl','sink']
+            set_2 = ['car','keyboard','mouse','clock','tv','knife','potted plant','microwave','cup']
+            obj = set_1 if self.opt.search_dataset == "set_1" else set_2
             if split == "test":
-                cocosearch18_TP_fixations = list(filter(lambda x: x['task'] == obj, cocosearch18_TP_fixations))
+                cocosearch18_TP_fixations = list(filter(lambda x: x['task'] in obj, cocosearch18_TP_fixations))
             else:
-                cocosearch18_TP_fixations = list(filter(lambda x: x['task'] != obj, cocosearch18_TP_fixations))
+                cocosearch18_TP_fixations = list(filter(lambda x: x['task'] not in obj, cocosearch18_TP_fixations))
 
         # explanation
         if self.opt.explanation:
